@@ -1,0 +1,37 @@
+#!/bin/bash
+#HW2
+
+total=0
+echo -n '2021년의 월과 일을 입력하세요: '
+read mon day
+
+for((i=0;i<mon;i++))
+do
+  if [ ${i} -eq 0 ]
+  then
+    let total+=day
+  elif [ ${i} -eq 2 ]
+  then
+    let total+=28
+  elif [ ${i} -eq 4 ] || [ ${i} -eq 6 ] || [ ${i} -eq 9 ] || [ ${i} -eq 11 ]
+  then
+    let total+=30
+  else
+    let total+=31
+  fi
+done
+
+let res=$total%7
+
+echo $mon '월' $day '일은'
+case $res in
+0) echo '목요일이다';;
+1) echo '금요일이다';;
+2) echo '토요일이다';;
+3) echo '일요일이다';;
+4) echo '월요일이다';;
+5) echo '화요일이다';;
+*) echo '수요일이다';;
+esac
+
+
