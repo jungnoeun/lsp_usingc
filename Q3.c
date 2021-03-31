@@ -28,9 +28,9 @@ int main(){
 			con[id++]='\n';
 		}
 	}
-	else{
-		for(int i=num;i>0;i--){
-			for(int j=i;j>0;j--){
+	else {
+		for(int i=num;i<0;i++){
+			for(int j=i;j<0;j++){
 				con[id++]=ch;
 			}
 			con[id++]='\n';
