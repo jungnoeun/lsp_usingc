@@ -1,6 +1,7 @@
 #!/bin/bash
 #HW2
 
+
 total=0
 echo -n '2021년의 월과 일을 입력하세요: '
 read mon day
