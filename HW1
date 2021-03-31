@@ -1,0 +1,28 @@
+#!/bin/bash
+#HW1
+
+num=0
+sum=0
+
+echo -n 'a와b를 입력하시오: '
+read a b
+
+for((i=a;i<=b;i++))
+do
+	for((j=1;j<=i;j++))
+	do
+		let val=$i%$j
+		if [ ${val} -eq 0 ]
+		then 
+		   let num+=1 
+		fi
+	done
+    if [ ${num} -eq 2 ]
+    then
+	let sum+=i
+    fi
+    num=0
+done
+
+echo 'a와b사이 소수들의 합: '
+echo $sum
