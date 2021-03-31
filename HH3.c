@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 
 int main(){
+	
 	int num, pm, id=0;
 	char ch;
 	char *fname;
