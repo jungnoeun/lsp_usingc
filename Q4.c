@@ -25,7 +25,7 @@ int main(){
 	}
 
 	for(int j=0;j<sizeof(fcon);j++){
-		if(fcon[j]>=65&&fname[j]<=90){
+		if(fcon[j]>=65&&fcon[j]<=90){
 			fcon[j]+=32;
 		}
 		else if(fcon[j]>=97&&fcon[j]<=122){
@@ -33,7 +33,7 @@ int main(){
 		}
 	}
 
-	if(fd = open(fname,O_RDWR|O_CREAT,0755)<0){
+	if((fd = open(fname,O_RDWR|O_CREAT,0755))<0){
 		fprintf(stderr,"open error for %s\n",fname);
 		exit(1);
 	}
