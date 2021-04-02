@@ -33,7 +33,7 @@ int main(){
 		}
 	}
 
-	if(fd = open(fname,O_WRONLY|O_CREAT)<0){
+	if(fd = open(fname,O_RDWR|O_CREAT,0755)<0){
 		fprintf(stderr,"open error for %s\n",fname);
 		exit(1);
 	}
