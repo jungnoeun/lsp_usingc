@@ -25,8 +25,9 @@ int main(){
 		exit(1);
 	}
 	write(fd1,arr1,sizeof(arr1));
+
 	//read를 하려면 문자열이어야 하는가
-	rcnt = read(fd1,arr2,sizeof(arr1));
+	rcnt = read(fd1,(char*)arr2,sizeof(arr1)/sizeof(int));
 	//if(read(fd1,arr2,sizeof(arr1))>0){
 		for(int i=0;i<num-1;i++){
 			for(int j=0;j<num-i-1;j++){
@@ -46,7 +47,7 @@ int main(){
 		printf("%d ",arr2[i]);
 	}
 
-	write(fd2,arr2,sizeof(arr2));
+	write(fd2,(char*)arr2,sizeof(arr2)/sizeof(int));
 	close(fd1);
 	close(fd2);
 	exit(0);
