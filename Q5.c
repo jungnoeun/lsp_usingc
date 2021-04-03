@@ -12,8 +12,8 @@ int main(){
 	int fd1,fd2;
 	int rcnt;
 	int ip=0;
-	char *fname1 = "bfile.txt";
-	char *fname2 = "afile.txt";
+	char *fname1 = "abfile.txt";
+	char *fname2 = "abcile.txt";
 	char *space = " ";
 	
 	printf("몇개의 난수를 입력하시겠습니까? : ");
@@ -24,17 +24,13 @@ int main(){
 
 	srand(time(NULL));
 	for(int i=0;i<num;i++){
-		arr1[i] = rand()%100;
+		arr1[i] = (rand()%100);
 	}
-	if((fd1 = open(fname1,O_WRONLY|O_CREAT,200))<0){
+	if((fd1 = open(fname1,O_WRONLY|O_CREAT|O_TRUNC))<0){
 		fprintf(stderr,"open error for %s\n",fname1);
 		exit(1);
 	}
 
-
-	//for(int i=0;i<num;i++){
-	//	sprintf(str,"%s%d ",str, arr1[i]);
-	//}
 	
 	for(int i=0;i<num;i++){
 		sprintf(str,"%d",arr1[i]);
@@ -81,7 +77,7 @@ int main(){
 
 	
 	
-	if((fd2 = open(fname2,O_RDWR|O_CREAT,200))<0){
+	if((fd2 = open(fname2,O_RDWR|O_CREAT|O_TRUNC))<0){
 		fprintf(stderr, "open error for %s\n",fname2);
 		exit(1);
 	}
