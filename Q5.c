@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
+#include <string.h>
 
 
 int main(){
@@ -14,8 +15,9 @@ int main(){
 	
 	printf("몇개의 난수를 입력하시겠습니까? : ");
 	scanf("%d",&num);
-	char *arr1 = (char*)malloc(sizeof(char)*num);
-	char *arr2 = (char*)malloc(sizeof(char)*num);
+	int arr1[1000] = {0,};
+	char str[1000]="";
+	char str2[1000] = "";
 	srand(time(NULL));
 	for(int i=0;i<num;i++){
 		arr1[i] = rand();
@@ -24,30 +26,45 @@ int main(){
 		fprintf(stderr,"open error for %s\n",fname1);
 		exit(1);
 	}
-	write(fd1,arr1,sizeof(arr1));
-
-	//read를 하려면 문자열이어야 하는가
-	rcnt = read(fd1,(char*)arr2,sizeof(arr1)/sizeof(int));
-	//if(read(fd1,arr2,sizeof(arr1))>0){
-		for(int i=0;i<num-1;i++){
-			for(int j=0;j<num-i-1;j++){
-				if(arr2[j]>arr2[j+1]){
-					def = arr2[j];
-					arr2[j] = arr2[j+1];
-					arr2[j+1] = def;
-				}
-			}
-		}
-	//}
 	if((fd2 = open(fname2,O_RDWR|O_CREAT,0755))<0){
 		fprintf(stderr,"open error for %s\n",fname2);
 		exit(1);
 	}
+
+
 	for(int i=0;i<num;i++){
-		printf("%d ",arr2[i]);
+		sprintf(str,"%s%d ",str, arr1[i]);
 	}
 
-	write(fd2,(char*)arr2,sizeof(arr2)/sizeof(int));
+
+	//write(fd1,(char*)arr1,sizeof(arr1));
+	write(fd1,str,sizeof(str));
+
+
+	//if(read(fd1,arr2,sizeof(arr1))>0){
+		for(int i=0;i<num-1;i++){
+			for(int j=0;j<num-i-1;j++){
+				if(arr1[j]>arr1[j+1]){
+					def = arr1[j];
+					arr1[j] = arr1[j+1];
+					arr1[j+1] = def;
+				}
+			}
+		}
+	//}
+
+	
+		
+	for(int i=0;i<num;i++){
+		sprintf(str2,"%s%d ",str2,arr1[i]);
+	}
+	
+	//while((rcnt = read(fd2,(char*)arr1,num))>0){
+	//write(fd2,(char*)arr1,rcnt);
+	write(fd2,str2,sizeof(str2));
+	//}
+
+	
 	close(fd1);
 	close(fd2);
 	exit(0);
