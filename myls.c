@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
 	}
 
 	//myls -opt 이거나 myls filename/dirname
-	if(argc == 2){
+	else if(argc == 2){
 		dir = ".";
 		if(argv[1][0] == '-'){
 			if(strcmp(argv[1],"-i") == 0){
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]){
 				}
 			}
 
-			if(strcmp(argv[1],"-l") == 0){
+			else if(strcmp(argv[1],"-l") == 0){
 				if((dp = opendir(dir)) == NULL)
 					perror(dir);
 				while((d = readdir(dp)) != NULL){
@@ -65,7 +65,41 @@ int main(int argc, char *argv[]){
 					//putchar('\n');
 				}
 			}
+
+			//else if(strcmp(argv[1],"-t") == 0){
+			//	if((dp = opendir(dir)) != NULL)
+			//		perror(dir);
+			//	while((d = readdir(dp)) != NULL){
+			//		sprintf(path, "%s/%s",dir,d->d_name);
+			//		if(lstat(path,&st)<0)
+			//			perror(path);
+
+			//	}
+			//}
 		}
+	
+		else{
+			//strncpy(path,argv[1],sizeof(argv[1]));
+			if(lstat(argv[1],&st)<0)
+				perror("lstat error\n");
+
+			if(S_ISREG(st.st_mode)){
+				printf("%s\n",argv[1]);
+			}
+
+			else if(S_ISDIR(st.st_mode)){
+				dir = argv[1];
+				if((dp = opendir(dir)) == NULL)
+					perror(dir);
+				while((d = readdir(dp)) != NULL){
+					//cnt++;
+					printf("%-14s",d->d_name);
+					//if(cnt%8==0)printf("\n");
+				}
+			}
+
+		}
+
 	
 	}
 
