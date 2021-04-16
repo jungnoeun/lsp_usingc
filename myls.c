@@ -34,6 +34,7 @@ int main(int argc, char *argv[]){
 			if(cnt%8 == 0)printf("\n");
 		}
 		printf("\n");
+		closedir(dp);
 	}
 
 	//myls -opt 이거나 myls filename/dirname
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]){
 					printf("%-14s",d->d_name);
 					if(cnt%8==0)printf("\n");
 				}
+				closedir(dp);
 			}
 
 			else if(strcmp(argv[1],"-l") == 0){
@@ -64,6 +66,7 @@ int main(int argc, char *argv[]){
 					printStat(path,d->d_name,&st);
 					//putchar('\n');
 				}
+				closedir(dp);
 			}
 
 			//else if(strcmp(argv[1],"-t") == 0){
@@ -92,10 +95,11 @@ int main(int argc, char *argv[]){
 				if((dp = opendir(dir)) == NULL)
 					perror(dir);
 				while((d = readdir(dp)) != NULL){
-					//cnt++;
+					cnt++;
 					printf("%-14s",d->d_name);
-					//if(cnt%8==0)printf("\n");
+					if(cnt%8==0)printf("\n");
 				}
+				closedir(dp);
 			}
 
 		}
@@ -104,7 +108,7 @@ int main(int argc, char *argv[]){
 	}
 
 
-	closedir(dp);
+	//closedir(dp);
 	exit(0);
 
 }
