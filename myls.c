@@ -121,7 +121,7 @@ void printStat(char *pathname, char *file, struct stat *st){
 	printf("%3ld ",st->st_nlink);
 	printf("%s %s",getpwuid(st->st_uid)->pw_name, getgrgid(st->st_gid)->gr_name);
 	printf("%9ld ",st->st_size);
-	printf("%.12s",ctime(&st->st_mtime)+4);
+	printf("%.12s ",ctime(&st->st_mtime)+4);
 	printf("%s\n",file);
 }
 
@@ -146,13 +146,18 @@ char type(mode_t mode){
 char* perm(mode_t mode){
 	int i;
 	static char perms[10] = "---------";
+	
 	for(i=0;i<3;i++){
+
 		if(mode&(S_IRUSR>>i*3))
 			perms[i*3] = 'r';
+		else perms[i*3] = '-';
 		if(mode&(S_IWUSR>>i*3))
 			perms[i*3+1] = 'w';
+		else perms[i*3+1] = '-';
 		if(mode&(S_IXUSR>>i*3))
 			perms[i*3+2] = 'x';
+		else perms[i*3+2] = '-';
 	}
 	return(perms);
 }
