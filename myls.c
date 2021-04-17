@@ -13,6 +13,12 @@
 char type(mode_t);
 char *perm(mode_t);
 void printStat(char*, char*, struct stat*);
+
+struct my_t{
+	char fname[12];
+	long mot;
+};
+
 int main(int argc, char *argv[]){
 
 	DIR *dp;
@@ -21,6 +27,8 @@ int main(int argc, char *argv[]){
 	struct dirent *d;
 	char path[1024];
 	int cnt =0;
+	struct my_t myt[1024] = {0}; 
+	int i=0;
 
 	//myls 
 	if(argc == 1){
@@ -56,6 +64,7 @@ int main(int argc, char *argv[]){
 				closedir(dp);
 			}
 
+			//myls -l 구현
 			else if(strcmp(argv[1],"-l") == 0){
 				if((dp = opendir(dir)) == NULL)
 					perror(dir);
@@ -69,16 +78,21 @@ int main(int argc, char *argv[]){
 				closedir(dp);
 			}
 
-			//else if(strcmp(argv[1],"-t") == 0){
-			//	if((dp = opendir(dir)) != NULL)
-			//		perror(dir);
-			//	while((d = readdir(dp)) != NULL){
-			//		sprintf(path, "%s/%s",dir,d->d_name);
-			//		if(lstat(path,&st)<0)
-			//			perror(path);
-
-			//	}
-			//}
+			//myls -t 명령어 구현
+			else if(strcmp(argv[1],"-t") == 0){
+				if((dp = opendir(dir)) != NULL)
+					perror(dir);
+				while((d =  readdir(dp)) != NULL){
+					sprintf(path, "%s/%s",dir,d->d_name);
+					if(lstat(path,&st)<0)
+						perror(path);
+					
+					strcpy(myt[i].fname,d->d_name);
+					myt[i].mot = st.st_mtime;
+					printf("%s %ld\n",myt[i].fname,myt[i].mot);
+					i++;
+				}
+			}
 		}
 	
 		else{
