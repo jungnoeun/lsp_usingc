@@ -19,7 +19,7 @@ struct my_t{
 	long mot;
 };
 
-void bubbleSort(int,struct my_t * );
+
 int main(int argc, char *argv[]){
 
 	DIR *dp;
@@ -148,37 +148,6 @@ int main(int argc, char *argv[]){
 	exit(0);
 
 }
-
-
-//파일 정렬
-/*void bubbleSort(int num,struct my_t *myt){
-	char temp[12] = {0,};
-	long itemp = 0;
-	
-	for(int j=0;j<num-1;j++){
-		for(int k=0;k<num-1-j;k++){
-			if(myt[k].mot<myt[k+1].mot){
-				strcpy(temp,myt[k].fname);
-				//temp = myt[k].fname;
-				strcpy(myt[k].fname,myt[k+1].fname);
-				//myt[k].fname =myt[k+1].fname;
-				//myt[k+1].fname = temp;
-				strcpy(myt[k+1].fname,temp);
-
-				itemp = myt[k].mot;
-				myt[k].mot = myt[k+1].mot;
-				myt[k+1].mot = itemp;
-			}
-		}
-	}
-
-
-	for(int j=0;j<num;j++){
-		printf("%-14s",myt[j].fname);
-		if(j%8==0)printf("\n");
-	}
-
-}*/
 
 
 
